@@ -15,14 +15,15 @@ export class Player {
   ctx: CanvasRenderingContext2D;
   game: Game;
   state: string;
+  frame = 0;
   constructor(ctx: CanvasRenderingContext2D, game: Game) {
     this.ctx = ctx;
     this.game = game;
-    this.state = 'stand'
+    this.state = 'stand';
   }
 
-  draw() {
-    this.ctx.drawImage(this.image, 0, 0, FRAME_WIDTH, IMAGE_HEIGHT, this.x, this.y, FRAME_WIDTH, IMAGE_HEIGHT);
+  draw(frame: number) {
+    this.ctx.drawImage(this.image, this.frame * FRAME_WIDTH, 0, FRAME_WIDTH, IMAGE_HEIGHT, this.x, this.y, FRAME_WIDTH, IMAGE_HEIGHT);
     if (this.y > CANVAS_HEIGHT) {
       this.y = 0;
     }
@@ -31,16 +32,26 @@ export class Player {
     }
     if (this.state === 'left') {
       this.x--;
+      if (frame % 5 === 0) {
+        this.frame++;
+      }
+      if (this.frame > 3) {
+        this.frame = 1;
+      }
+      console.log(this.frame);
     } else if (this.state === 'right') {
       this.x++;
-    } 
+    } else {
+      this.frame = 0;
+    }
   }
 
   private checkForCollision() {
     const floors = this.game.floors;
     for (let i = 0; i < this.game.floors.length; i++) {
-      if (this.y + IMAGE_HEIGHT >= floors[i].y && this.x <= (floors[i].x + floors[i].width) && (this.x + FRAME_WIDTH > floors[i].x) && this.y < floors[i].y) {
+      if (this.y + IMAGE_HEIGHT >= floors[i].y && this.x <= floors[i].x + floors[i].width && this.x + FRAME_WIDTH > floors[i].x && this.y < floors[i].y) {
         this.y = floors[i].y - IMAGE_HEIGHT;
+        // this.frame = 0;
         return true;
       }
     }
@@ -48,14 +59,14 @@ export class Player {
   }
 
   goLeft() {
-    this.state = 'left'
+    this.state = 'left';
   }
 
   goRight() {
-    this.state = 'right'
+    this.state = 'right';
   }
 
   stop() {
-    this.state = 'stand'
+    this.state = 'stand';
   }
 }

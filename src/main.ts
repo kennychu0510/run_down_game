@@ -10,14 +10,15 @@ const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
+let frameNumber: number;
 const game = new Game(ctx)
 const player = new Player(ctx, game)
 function render() {
   clear(ctx)
   drawBackground(ctx)
   game.draw()
-  player.draw()
-  requestAnimationFrame(render);
+  player.draw(frameNumber)
+  frameNumber = requestAnimationFrame(render);
 }
 
 function clear(ctx: CanvasRenderingContext2D) {
