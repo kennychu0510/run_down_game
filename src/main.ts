@@ -1,5 +1,5 @@
 import { drawBackground } from './background';
-import { CANVAS_HEIGHT, CANVAS_WIDTH, MIN_DIST_BETWEEN_FLOORS, NUMBER_OF_TRIANGLES, TRIANGLE_HEIGHT, TRIANGLE_WIDTH } from './constant';
+import { CANVAS_HEIGHT, CANVAS_WIDTH, MIN_DIST_BETWEEN_FLOORS, NUMBER_OF_TRIANGLES, CEILING_BLADE_HEIGHT, CEILING_BLADE_WIDTH } from './constant';
 import { Floor } from './Floor';
 import { Game } from './Game';
 import { getRandomVerticalOffset, SelectElement } from './helper';
@@ -10,8 +10,10 @@ const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
+const timeDisplay = SelectElement('#time-value') as HTMLSpanElement
+
 let frameNumber: number;
-const game = new Game(ctx)
+const game = new Game(ctx, timeDisplay)
 const player = new Player(ctx, game)
 function render() {
   clear(ctx)

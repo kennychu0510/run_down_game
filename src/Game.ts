@@ -1,24 +1,31 @@
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from './constant';
 import { Floor } from './Floor';
-import { getRandomVerticalOffset } from './helper';
+import { getRandomVerticalOffset, millisToMinutesAndSeconds } from './helper';
 
 export class Game {
   floors: Floor[] = [];
   speed = 1;
   private state = 'ready';
-  ctx: CanvasRenderingContext2D
+  ctx: CanvasRenderingContext2D;
+  startTime: Date;
+  timeDisplay: HTMLSpanElement
 
-  constructor(ctx: CanvasRenderingContext2D) {
+  constructor(ctx: CanvasRenderingContext2D, timeDisplay: HTMLSpanElement) {
     for (let i = 0; i < 5; i++) {
       this.floors.push(new Floor(ctx, i * getRandomVerticalOffset()));
     }
     this.ctx = ctx
+    this.startTime = new Date()
+    this.timeDisplay = timeDisplay
   }
 
   draw() {
     switch (this.state) {
       case 'playing':
         this.floors.forEach((floor) => floor.draw(this.speed));
+        const currentTime = new Date();
+        const timeElapsed = currentTime.getTime() - this.startTime.getTime()
+        this.timeDisplay.innerHTML = millisToMinutesAndSeconds(timeElapsed)
         break;
       case 'ready':
         this.ctx.font = '18px serif'
@@ -43,10 +50,13 @@ export class Game {
 
   start() {
     this.state = 'playing';
+    this.startTime = new Date();
+    console.log('GAME STARTED')
   }
 
   stop() {
     this.state = 'stopped';
+
   }
 
 }

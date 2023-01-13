@@ -1,4 +1,4 @@
-import { CANVAS_WIDTH, CANVAS_HEIGHT } from './constant';
+import { CANVAS_WIDTH, CANVAS_HEIGHT, CEILING_BLADE_HEIGHT } from './constant';
 import { Game } from './Game';
 
 export const playerImg = new Image();
@@ -44,6 +44,10 @@ export class Player {
 
     if (this.y > CANVAS_HEIGHT) {
       // this.y = 0;
+      this.game.stop()
+    }
+
+    if (this.y <= CEILING_BLADE_HEIGHT) {
       this.game.stop()
     }
 
