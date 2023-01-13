@@ -104,5 +104,6 @@ export class Player {
   reset() {
     this.x = CANVAS_WIDTH / 2 - SPRITE_WIDTH/2;
     this.y = CANVAS_HEIGHT / 2 - SPRITE_HEIGHT/2;
+    this.ySpeed = 0;
   }
 }

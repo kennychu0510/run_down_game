@@ -17,6 +17,8 @@
 
 html {
   height: 100vh;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 #app {

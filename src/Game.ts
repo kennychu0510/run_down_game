@@ -9,6 +9,7 @@ export class Game {
   ctx: CanvasRenderingContext2D;
   startTime: Date;
   timeDisplay: HTMLSpanElement
+  level = 0;
 
   constructor(ctx: CanvasRenderingContext2D, timeDisplay: HTMLSpanElement) {
     for (let i = 0; i < 5; i++) {
@@ -26,6 +27,12 @@ export class Game {
         const currentTime = new Date();
         const timeElapsed = currentTime.getTime() - this.startTime.getTime()
         this.timeDisplay.innerHTML = millisToMinutesAndSeconds(timeElapsed)
+        if (Math.floor(timeElapsed/10000) > this.level) {
+          this.speed += 0.2
+          console.log('level:', this.level)
+          console.log('speed:', this.speed)
+        }
+        this.level = Math.floor(timeElapsed/10000)
         break;
       case 'ready':
         this.ctx.font = '18px serif'
