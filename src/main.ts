@@ -31,9 +31,15 @@ document.addEventListener('keydown', (e) => {
   switch (e.key) {
     case 'a':
       player.goLeft()
+      if (game.getState() === 'ready') {
+        game.start()
+      }
       break;
     case 'd':
       player.goRight()
+      if (game.getState() === 'ready') {
+        game.start()
+      }
       break;
     default:
   }

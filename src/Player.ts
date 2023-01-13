@@ -43,23 +43,12 @@ export class Player {
     this.renderSprite(frame)
 
     if (this.y > CANVAS_HEIGHT) {
-      this.y = 0;
+      // this.y = 0;
+      this.game.stop()
     }
-    if (!this.checkForCollision()) {
-      this.y++;
-    }
-    if (this.state === 'left') {
-      this.x--;
-      if (frame % 5 === 0) {
-        this.frame++;
-      }
-      if (this.frame > 3) {
-        this.frame = 1;
-      }
-    } else if (this.state === 'right') {
-      this.x++;
-    } else {
-      this.frame = 0;
+
+    if (this.game.getState() === 'playing') {
+      this.handleMovement(frame)
     }
   }
 
@@ -84,5 +73,28 @@ export class Player {
 
   stop() {
     this.state = 'stand';
+  }
+
+  handleGravity() {
+    if (!this.checkForCollision()) {
+      this.y++;
+    }
+  }
+
+  handleMovement(frame: number) {
+    this.handleGravity()
+    if (this.state === 'left') {
+      this.x--;
+      if (frame % 5 === 0) {
+        this.frame++;
+      }
+      if (this.frame > 3) {
+        this.frame = 1;
+      }
+    } else if (this.state === 'right') {
+      this.x++;
+    } else {
+      this.frame = 0;
+    }
   }
 }

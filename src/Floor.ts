@@ -7,7 +7,6 @@ export class Floor {
   ctx: CanvasRenderingContext2D;
   y = CANVAS_HEIGHT;
   x = 0;
-  speed = 0.5;
 
   constructor(ctx: CanvasRenderingContext2D, offset?: number) {
     const newWidth = Math.round(100 + Math.random() * 50);
@@ -19,14 +18,14 @@ export class Floor {
     }
   }
 
-  draw() {
+  draw(speed: number) {
     this.ctx.strokeStyle = 'white';
     this.ctx.fillStyle = 'white';
     this.ctx.beginPath()
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
     this.ctx.stroke();
-    this.y -= this.speed;
-    if (this.y < 0) {
+    this.y -= speed;
+    if (this.y + this.height < 0) {
       this.y = CANVAS_HEIGHT;
       this.init();
     }
