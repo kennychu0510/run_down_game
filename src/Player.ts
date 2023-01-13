@@ -13,7 +13,10 @@ export class Player {
   game: Game;
   state: 'left' | 'right' | 'stand';
   frame = 0;
-  image
+  image;
+  tick = 0;
+  gravity = 0.05;
+  ySpeed = 0;
 
   constructor(ctx: CanvasRenderingContext2D, game: Game) {
     this.ctx = ctx;
@@ -27,11 +30,13 @@ export class Player {
     }
   }
 
-  renderSprite(renderFrame: number) {
+  renderSprite() {
     this.image.image.src = IMAGE_PATH + this.image.name + '_' + this.image.current + '.png'
     this.ctx.drawImage(this.image.image, this.x, this.y)
 
-    if (renderFrame % 5 === 0) {
+    this.tick++
+
+    if (this.tick % 5 === 0) {
       this.image.current++
       if (this.image.current > this.image.frames) {
         this.image.current = 1
@@ -39,8 +44,8 @@ export class Player {
     }
   }
 
-  draw(frame: number) {
-    this.renderSprite(frame)
+  draw() {
+    this.renderSprite()
 
     if (this.y > CANVAS_HEIGHT) {
       // this.y = 0;
@@ -52,7 +57,7 @@ export class Player {
     }
 
     if (this.game.getState() === 'playing') {
-      this.handleMovement(frame)
+      this.handleMovement()
     }
   }
 
@@ -61,6 +66,7 @@ export class Player {
     for (let i = 0; i < this.game.floors.length; i++) {
       if (this.y + this.image.image.height >= floors[i].y && this.x <= floors[i].x + floors[i].width && this.x + this.image.image.width > floors[i].x && this.y < floors[i].y) {
         this.y = floors[i].y - this.image.image.height;
+        this.ySpeed = 0;
         return true;
       }
     }
@@ -81,24 +87,23 @@ export class Player {
 
   handleGravity() {
     if (!this.checkForCollision()) {
-      this.y++;
+      this.ySpeed += this.gravity
+      this.y += this.ySpeed
     }
   }
 
-  handleMovement(frame: number) {
+  handleMovement() {
     this.handleGravity()
     if (this.state === 'left') {
       this.x--;
-      if (frame % 5 === 0) {
-        this.frame++;
-      }
-      if (this.frame > 3) {
-        this.frame = 1;
-      }
+      
     } else if (this.state === 'right') {
       this.x++;
-    } else {
-      this.frame = 0;
-    }
+    } 
+  }
+
+  reset() {
+    this.x = CANVAS_WIDTH / 2;
+    this.y = CANVAS_HEIGHT / 2;
   }
 }

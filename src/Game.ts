@@ -38,6 +38,7 @@ export class Game {
         this.ctx.textAlign = 'center'
         this.ctx.fillStyle = 'white'
         this.ctx.fillText(`Nice Try :)`, CANVAS_WIDTH/2, CANVAS_HEIGHT/2 * 0.8)
+        this.ctx.fillText(`You lasted ${this.timeDisplay.innerText}`, CANVAS_WIDTH/2, CANVAS_HEIGHT/2)
         break;
       default:
         console.log(this.state + ' not handled')
@@ -55,8 +56,14 @@ export class Game {
   }
 
   stop() {
-    this.state = 'stopped';
-
+    if (this.state !== 'stopped') {
+      this.state = 'stopped';
+      console.log('GAME STOPPED')
+    }
   }
 
+  reset() {
+    console.log('GAME RESET')
+    this.state = 'ready'
+  }
 }

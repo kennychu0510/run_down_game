@@ -19,7 +19,7 @@ function render() {
   clear(ctx)
   drawBackground(ctx)
   game.draw()
-  player.draw(frameNumber)
+  player.draw()
   frameNumber = requestAnimationFrame(render);
 }
 
@@ -44,6 +44,14 @@ document.addEventListener('keydown', (e) => {
       }
       break;
     default:
+  }
+})
+
+document.addEventListener('keypress', (e) =>{
+  if (e.code === 'Space') {
+    e.preventDefault()
+    game.reset()
+    player.reset()
   }
 })
 document.addEventListener('keyup', () => {
