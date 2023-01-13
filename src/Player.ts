@@ -4,42 +4,41 @@ import { Game } from './Game';
 export const playerImg = new Image();
 playerImg.src = './images/player_sprite.png';
 
-const IMAGE_PATH = './images/'
+const SPRITE_HEIGHT = 16
+const SPRITE_Y_OFFSET = 24
+const SPRITE_WIDTH = 14
 
 export class Player {
-  x = CANVAS_WIDTH / 2;
-  y = CANVAS_HEIGHT / 2;
+  x = CANVAS_WIDTH / 2 - SPRITE_WIDTH/2;
+  y = CANVAS_HEIGHT / 2 - SPRITE_HEIGHT/2;
   ctx: CanvasRenderingContext2D;
   game: Game;
   state: 'left' | 'right' | 'stand';
   frame = 0;
-  image;
+  image = new Image()
   tick = 0;
   gravity = 0.05;
   ySpeed = 0;
+  frameMax = 2;
+  spriteHeight = 16;
+  spriteWidth = 14
 
   constructor(ctx: CanvasRenderingContext2D, game: Game) {
     this.ctx = ctx;
     this.game = game;
     this.state = 'stand';
-    this.image = {
-      name: 'player_static',
-      frames: 2,
-      current: 1,
-      image: new Image()
-    }
+    this.image.src = './images/mario.png'
   }
 
   renderSprite() {
-    this.image.image.src = IMAGE_PATH + this.image.name + '_' + this.image.current + '.png'
-    this.ctx.drawImage(this.image.image, this.x, this.y)
+    this.ctx.drawImage(this.image, 0, this.frame * (SPRITE_HEIGHT + SPRITE_Y_OFFSET), this.image.width, SPRITE_HEIGHT, this.x, this.y, this.image.width, SPRITE_HEIGHT)
 
     this.tick++
 
     if (this.tick % 5 === 0) {
-      this.image.current++
-      if (this.image.current > this.image.frames) {
-        this.image.current = 1
+      this.frame++;
+      if (this.frame === this.frameMax) {
+        this.frame = 0;
       }
     }
   }
@@ -64,8 +63,8 @@ export class Player {
   private checkForCollision() {
     const floors = this.game.floors;
     for (let i = 0; i < this.game.floors.length; i++) {
-      if (this.y + this.image.image.height >= floors[i].y && this.x <= floors[i].x + floors[i].width && this.x + this.image.image.width > floors[i].x && this.y < floors[i].y) {
-        this.y = floors[i].y - this.image.image.height;
+      if (this.y + this.spriteHeight >= floors[i].y && this.x <= floors[i].x + floors[i].width && this.x + this.spriteWidth > floors[i].x && this.y < floors[i].y) {
+        this.y = floors[i].y - this.spriteHeight;
         this.ySpeed = 0;
         return true;
       }
