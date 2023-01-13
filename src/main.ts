@@ -99,6 +99,6 @@ window.addEventListener('blur', () => {
 
 window.onscroll = null;
 
-document.addEventListener('gesturestart', function (e) {
-  e.preventDefault();
-});
+// document.addEventListener('gesturestart', function (e) {
+//   e.preventDefault();
+// });
