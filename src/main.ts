@@ -89,3 +89,7 @@ resetBtn.addEventListener('click', () => {
   game.reset();
   player.reset();
 })
+
+window.addEventListener('blur', () => {
+  game.stop();
+})
