@@ -27,7 +27,7 @@ export class Player {
     }
   }
 
-  renderSprite(state: 'left' | 'right' | 'stand', renderFrame: number) {
+  renderSprite(renderFrame: number) {
     this.image.image.src = IMAGE_PATH + this.image.name + '_' + this.image.current + '.png'
     this.ctx.drawImage(this.image.image, this.x, this.y)
 
@@ -40,8 +40,7 @@ export class Player {
   }
 
   draw(frame: number) {
-    // this.ctx.drawImage(this.image, this.frame * FRAME_WIDTH, 0, FRAME_WIDTH, IMAGE_HEIGHT, this.x, this.y, FRAME_WIDTH, IMAGE_HEIGHT);
-    this.renderSprite('stand', frame)
+    this.renderSprite(frame)
 
     if (this.y > CANVAS_HEIGHT) {
       this.y = 0;
