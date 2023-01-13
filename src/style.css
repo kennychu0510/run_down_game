@@ -32,3 +32,12 @@ canvas {
   height: 400px;
   border: 1px solid white;
 }
+
+#controller {
+  display: flex;
+  flex-direction: row;
+}
+
+#controller button {
+  margin: 10px;
+}

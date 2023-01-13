@@ -10,16 +10,19 @@ const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
-const timeDisplay = SelectElement('#time-value') as HTMLSpanElement
+const timeDisplay = SelectElement('#time-value') as HTMLSpanElement;
+const goLeftBtn = SelectElement('#go-left-button') as HTMLButtonElement;
+const goRightBtn = SelectElement('#go-right-button') as HTMLButtonElement;
+const resetBtn = SelectElement('#reset-button') as HTMLButtonElement;
 
 let frameNumber: number;
-const game = new Game(ctx, timeDisplay)
-const player = new Player(ctx, game)
+const game = new Game(ctx, timeDisplay);
+const player = new Player(ctx, game);
 function render() {
-  clear(ctx)
-  drawBackground(ctx)
-  game.draw()
-  player.draw()
+  clear(ctx);
+  drawBackground(ctx);
+  game.draw();
+  player.draw();
   frameNumber = requestAnimationFrame(render);
 }
 
@@ -32,28 +35,54 @@ render();
 document.addEventListener('keydown', (e) => {
   switch (e.key) {
     case 'a':
-      player.goLeft()
-      if (game.getState() === 'ready') {
-        game.start()
-      }
+      handleGoLeft();
       break;
     case 'd':
-      player.goRight()
-      if (game.getState() === 'ready') {
-        game.start()
-      }
+      handleGoRight();
       break;
     default:
   }
-})
+});
 
-document.addEventListener('keypress', (e) =>{
-  if (e.code === 'Space') {
-    e.preventDefault()
-    game.reset()
-    player.reset()
+function handleGoLeft() {
+  player.goLeft();
+  if (game.getState() === 'ready') {
+    game.start();
   }
-})
+}
+
+function handleGoRight() {
+  player.goRight();
+  if (game.getState() === 'ready') {
+    game.start();
+  }
+}
+
+document.addEventListener('keypress', (e) => {
+  if (e.code === 'Space') {
+    e.preventDefault();
+    game.reset();
+    player.reset();
+  }
+});
 document.addEventListener('keyup', () => {
-  player.stop()
-})
+  player.stop();
+});
+
+goLeftBtn.addEventListener('pointerdown', () => {
+  console.log('go left');
+  handleGoLeft();
+});
+
+goRightBtn.addEventListener('pointerdown', () => {
+  console.log('go right');
+  handleGoRight();
+});
+
+goLeftBtn.addEventListener('pointerup', () => {
+  player.stop();
+});
+
+goRightBtn.addEventListener('pointerup', () => {
+  player.stop();
+});

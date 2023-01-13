@@ -2,9 +2,9 @@ import { CANVAS_WIDTH, CANVAS_HEIGHT, CEILING_BLADE_HEIGHT } from './constant';
 import { Game } from './Game';
 
 export const playerImg = new Image();
-playerImg.src = './src/images/player_sprite.png';
+playerImg.src = './images/player_sprite.png';
 
-const IMAGE_PATH = './src/images/'
+const IMAGE_PATH = './images/'
 
 export class Player {
   x = CANVAS_WIDTH / 2;
