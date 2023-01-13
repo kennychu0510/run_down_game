@@ -50,5 +50,16 @@ canvas {
 }
 
 #reset-button {
-  margin: 20px
+  margin: 20px;
+  padding: 5px
+}
+
+#controller button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button {
+  border-color: 'white';
+  border-radius: 20px;
 }

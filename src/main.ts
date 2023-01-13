@@ -9,6 +9,7 @@ const canvas = SelectElement('canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
+window.devicePixelRatio = 2;
 
 const timeDisplay = SelectElement('#time-value') as HTMLSpanElement;
 const goLeftBtn = SelectElement('#go-left-button') as HTMLButtonElement;
@@ -21,8 +22,8 @@ const player = new Player(ctx, game);
 function render() {
   clear(ctx);
   drawBackground(ctx);
-  game.draw();
   player.draw();
+  game.draw();
   frameNumber = requestAnimationFrame(render);
 }
 
@@ -88,8 +89,10 @@ goRightBtn.addEventListener('pointerup', () => {
 resetBtn.addEventListener('click', () => {
   game.reset();
   player.reset();
-})
+});
 
 window.addEventListener('blur', () => {
-  game.stop();
-})
+  if (game.getState() === 'playing') {
+    game.stop();
+  }
+});

@@ -64,6 +64,16 @@ export class Game {
 
   reset() {
     console.log('GAME RESET')
+    this.init();
+  }
+
+  init() {
+    this.floors = [];
+    for (let i = 0; i < 5; i++) {
+      this.floors.push(new Floor(this.ctx, i * getRandomVerticalOffset()));
+    }
     this.state = 'ready'
   }
 }
+
+
