@@ -55,10 +55,12 @@ canvas {
 
 #reset-button {
   margin: 20px;
-  padding: 5px
+  padding: 5px;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-#controller button:focus, #reset-button {
+#controller button:focus, #reset-button:focus {
   outline: none;
   box-shadow: none;
 }
