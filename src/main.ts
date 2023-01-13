@@ -96,3 +96,5 @@ window.addEventListener('blur', () => {
     game.stop();
   }
 });
+
+window.onscroll = null;
