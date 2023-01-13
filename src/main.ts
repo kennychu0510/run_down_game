@@ -70,12 +70,10 @@ document.addEventListener('keyup', () => {
 });
 
 goLeftBtn.addEventListener('pointerdown', () => {
-  console.log('go left');
   handleGoLeft();
 });
 
 goRightBtn.addEventListener('pointerdown', () => {
-  console.log('go right');
   handleGoRight();
 });
 
@@ -86,3 +84,8 @@ goLeftBtn.addEventListener('pointerup', () => {
 goRightBtn.addEventListener('pointerup', () => {
   player.stop();
 });
+
+resetBtn.addEventListener('click', () => {
+  game.reset();
+  player.reset();
+})
