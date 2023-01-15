@@ -80,6 +80,7 @@ export class Game {
       this.floors.push(new Floor(this.ctx, i * getRandomVerticalOffset()));
     }
     this.state = 'ready'
+    this.speed = 1;
   }
 }
 
