@@ -7,12 +7,6 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
 }
 
 html {
@@ -20,17 +14,19 @@ html {
   user-select: none;
   -webkit-user-select: none;
   overflow: hidden;
+  touch-action: none;
 }
 
 #app {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 90vh;
+  height: 85vh;
 }
 
 #game-header {
   margin: 10px;
+  height: 50px;
 }
 
 canvas {
@@ -43,21 +39,27 @@ canvas {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 20px;
+  width: 100%;
+  flex-grow: 1;
+  
 }
 
 #controller button {
-  margin: 10px;
-  width: 80px;
-  height: 40px;
+  width: 50%;
   align-self: flex-end;
   user-select: none;
   -webkit-user-select: none;
+  height: 100%;
+  color: white;
+  font-size: larger;
+  text-transform: uppercase;
+  padding: 50px;
 }
 
 #reset-button {
   margin: 20px;
-  padding: 5px;
+  padding: 10px;
+  font-size: large;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -69,5 +71,4 @@ canvas {
 
 button {
   border-color: 'white';
-  border-radius: 20px;
 }
